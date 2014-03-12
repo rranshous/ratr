@@ -1,5 +1,6 @@
 Ratr::Application.routes.draw do
   root "movies#public"
+  get "movies/:id/upvote", to: "movies#upvote", as: 'upvote_movie'
   resources :movies
 
   # The priority is based upon order of creation: first created -> highest priority.

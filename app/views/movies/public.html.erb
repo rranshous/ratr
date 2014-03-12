@@ -2,6 +2,9 @@
 
 <ul>
 <% @upcoming_movies.each do |movie| %>
-  <li> <%= movie["title"] %>  - <%= movie["release_date"] %></li>
+  <li>
+    <%= link_to 'upvote', upvote_movie_path(movie), remote:true %>
+    <%= movie["title"] %>  - <%= movie["release_date"] %>
+  </li>
 <% end %>
 </ul>
