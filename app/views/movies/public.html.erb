@@ -4,7 +4,7 @@
 <% @movies.each do |movie| %>
   <li>
     <%= link_to 'upvote', upvote_movie_path(movie), remote:true %>
-    [<%= movie.upvotes %>]
+    [<span id="upvote-count-<%= movie.id %>"><%= movie.upvotes %></span>]
     <%= movie.title %>  - <%= movie.release_date %>
   </li>
 <% end %>
