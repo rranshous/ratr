@@ -1,0 +1,7 @@
+<h1>Upcoming:</h1>
+
+<ul>
+<% @upcoming_movies.each do |movie| %>
+  <li> <%= movie["title"] %>  - <%= movie["release_date"] %></li>
+<% end %>
+</ul>

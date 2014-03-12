@@ -1,4 +1,5 @@
 Ratr::Application.routes.draw do
+  root "movies#public"
   resources :movies
 
   # The priority is based upon order of creation: first created -> highest priority.

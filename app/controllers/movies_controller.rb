@@ -1,6 +1,10 @@
 class MoviesController < ApplicationController
   before_action :set_movie, only: [:show, :edit, :update, :destroy]
 
+  def public
+    @upcoming_movies = Tmdb::Movie.upcoming
+  end
+
   # GET /movies
   # GET /movies.json
   def index

@@ -77,4 +77,6 @@ Ratr::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+
+  Tmdb::Api.key("e3ae74a2cade617304d73ba7c01e3f35")
 end

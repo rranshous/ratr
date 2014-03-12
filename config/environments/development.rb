@@ -26,4 +26,6 @@ Ratr::Application.configure do
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
   config.assets.debug = true
+
+  Tmdb::Api.key("e3ae74a2cade617304d73ba7c01e3f35")
 end
