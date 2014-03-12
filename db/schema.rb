@@ -15,7 +15,8 @@ ActiveRecord::Schema.define(version: 20140312165434) do
 
   create_table "movies", force: true do |t|
     t.string   "title"
-    t.integer  "upvotes",    default: 0
+    t.integer  "upvotes",      default: 0
+    t.string   "release_date"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
