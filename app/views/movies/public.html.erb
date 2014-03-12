@@ -1,7 +1,39 @@
 <h1>Upcoming:</h1>
-
 <ul>
-<% @movies.each do |movie| %>
+<% @upcoming.each do |movie| %>
+  <li>
+    <%= link_to 'upvote', upvote_movie_path(movie), remote:true %>
+    [<span id="upvote-count-<%= movie.id %>"><%= movie.upvotes %></span>]
+    <%= movie.title %>  - <%= movie.release_date %>
+  </li>
+<% end %>
+</ul>
+
+<h1>Now Playing:</h1>
+<ul>
+<% @now_playing.each do |movie| %>
+  <li>
+    <%= link_to 'upvote', upvote_movie_path(movie), remote:true %>
+    [<span id="upvote-count-<%= movie.id %>"><%= movie.upvotes %></span>]
+    <%= movie.title %>  - <%= movie.release_date %>
+  </li>
+<% end %>
+</ul>
+
+<h1>Top Rated:</h1>
+<ul>
+<% @top_rated.each do |movie| %>
+  <li>
+    <%= link_to 'upvote', upvote_movie_path(movie), remote:true %>
+    [<span id="upvote-count-<%= movie.id %>"><%= movie.upvotes %></span>]
+    <%= movie.title %>  - <%= movie.release_date %>
+  </li>
+<% end %>
+</ul>
+
+<h1>Popular:</h1>
+<ul>
+<% @popular.each do |movie| %>
   <li>
     <%= link_to 'upvote', upvote_movie_path(movie), remote:true %>
     [<span id="upvote-count-<%= movie.id %>"><%= movie.upvotes %></span>]

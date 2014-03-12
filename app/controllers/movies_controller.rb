@@ -3,15 +3,31 @@ class MoviesController < ApplicationController
 
   def public
     upcoming_api_movies = Tmdb::Movie.upcoming
+    popular_api_movies = Tmdb::Movie.popular
+    now_playing_api_movies = Tmdb::Movie.now_playing
+    top_rated_api_movies = Tmdb::Movie.top_rated
+
     upcoming_api_movies.each do |api_movie|
-      movie = Movie.where(id:api_movie["id"]).first_or_initialize()
-      if movie.title.nil?
-        movie.title = api_movie["title"]
-        movie.release_date = api_movie["release_date"]
-        movie.save
-      end
+      create_from_api_movie(api_movie, 'upcoming')
     end
-    @movies = Movie.all
+
+    popular_api_movies.each do |api_movie|
+      create_from_api_movie(api_movie, 'popular')
+    end
+
+    now_playing_api_movies.each do |api_movie|
+      create_from_api_movie(api_movie, 'now_playing')
+    end
+
+    top_rated_api_movies.each do |api_movie|
+      create_from_api_movie(api_movie, 'top_rated')
+    end
+
+    @top_rated = Movie.where(category:'top_rated')
+    @now_playing = Movie.where(category:'now_playing')
+    @popular = Movie.where(category:'popular')
+    @upcoming = Movie.where(category:'upcoming')
+
   end
 
   # GET /movies
@@ -94,5 +110,13 @@ class MoviesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def movie_params
       params.require(:movie).permit(:title, :upvotes, :description)
+    end
+
+    def create_from_api_movie api_movie, category=nil
+      movie = Movie.where(id:api_movie["id"]).first_or_initialize()
+      movie.title = api_movie["title"]
+      movie.release_date = api_movie["release_date"]
+      movie.category = category
+      movie.save
     end
 end
