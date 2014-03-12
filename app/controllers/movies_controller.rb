@@ -2,7 +2,16 @@ class MoviesController < ApplicationController
   before_action :set_movie, only: [:show, :edit, :update, :destroy, :upvote]
 
   def public
-    @upcoming_movies = Tmdb::Movie.upcoming
+    upcoming_api_movies = Tmdb::Movie.upcoming
+    upcoming_api_movies.each do |api_movie|
+      movie = Movie.where(id:api_movie["id"]).first_or_initialize()
+      if movie.title.nil?
+        movie.title = api_movie["title"]
+        movie.release_date = api_movie["release_date"]
+        movie.save
+      end
+    end
+    @movies = Movie.all
   end
 
   # GET /movies
@@ -26,12 +35,6 @@ class MoviesController < ApplicationController
   end
 
   def upvote
-    logger.debug "Params: #{params}"
-    if @movie.nil?
-      @movie = Movie.new
-      @movie.id = params[:id]
-      @movie.title = params[:title]
-    end
     @movie.upvotes += 1
     respond_to do |format|
       if @movie.save
@@ -85,8 +88,7 @@ class MoviesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_movie
-      #@movie = Movie.find(params[:id])
-      @movie = Movie.where(id:params[:id]).first
+      @movie = Movie.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
